@@ -27,6 +27,54 @@ div.writeform{
   	font-family: 'Single Day';
 }
 </style>
+
+<script type="text/javascript">
+
+$(function(){
+	
+	
+	
+	//db추가
+	$("#btnadd").click(function(){
+		
+		var writer=$("#writer").val();
+		var subject=$("#subject").val();
+		var avata=$("#avata").val();
+		var content=$("#content").val();
+		
+		//var data="writer="+writer+"&subject="+subject+"&content="+content+"&avata="+avata; 방법1
+		
+		//console.log(writer,subject,content,avata);
+		
+		$.ajax({
+			
+			type:"post",
+			dataType:"html",
+			url:"insertboardproc.jsp",
+			data:{"writer":writer,"subject":subject,"content":content,"avata":avata}, //방법2
+			success:function(){
+				
+				
+				
+				//insert성공시 처리
+				$("#writer").val("");
+				$("#subject").val("");
+				$("#content").val("");
+				
+				alert("success");
+			}
+			
+		});
+		
+		
+	});
+	
+});
+
+
+
+//사용자함수 list
+</script>
 </head>
 <body>
   <div>
@@ -35,7 +83,7 @@ div.writeform{
   </div>
   
   <div class="writeform">
-       <form action="#">
+       <form action="#" >
           <table class="table table-bordered" style="width: 400px;">
              <caption><b>게시글 추가</b></caption>
                <tr>
