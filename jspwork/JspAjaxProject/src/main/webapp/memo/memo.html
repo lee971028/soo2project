@@ -206,6 +206,26 @@ $(function(){
 		
 	});
 	
+	//수정
+	$("td.dbupdate").click(function(){
+		
+		var data=$("#updateform").serialize();
+		//alert(data);
+		
+		$.ajax({
+			
+			type:"post",
+			dataType:"html",
+			url:"updateproc.jsp",
+			data:data,
+			success:function(res){
+				
+				//수정성공시 목록 다시 출력
+				list();
+			}
+		});
+	});
+	
 });
 
 
