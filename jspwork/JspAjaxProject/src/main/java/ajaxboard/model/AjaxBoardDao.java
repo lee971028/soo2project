@@ -77,9 +77,6 @@ public class AjaxBoardDao {
 			db.dbClose(rs, pstmt, conn);
 		}
 		
-		
-		
-		
 		return list;
 	}
 	

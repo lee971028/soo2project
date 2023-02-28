@@ -1,17 +1,31 @@
+<%@page import="org.json.simple.JSONObject"%>
+<%@page import="org.json.simple.JSONArray"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="ajaxboard.model.AjaxBoardDto"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="ajaxboard.model.AjaxBoardDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
-<link
-        href="https://fonts.googleapis.com/css2?family=Anton&family=Edu+VIC+WA+NT+Beginner:wght@600&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap"
-        rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-</head>
-<body>
+<%
+   AjaxBoardDao dao=new AjaxBoardDao();
+   ArrayList<AjaxBoardDto> list=dao.getAllAboardDatas();
+   SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+   
+   //json라이브러리 이용해서 json데이타 생성
+   JSONArray arr=new JSONArray();
+   
+   for(AjaxBoardDto dto:list)
+   {
+	   JSONObject ob=new JSONObject();
+	   ob.put("num", dto.getNum());
+	   ob.put("writer", dto.getWriter());
+	   ob.put("subject", dto.getSubject());
+	   ob.put("content", dto.getContent());
+	   ob.put("avata", dto.getAvata());
+	   ob.put("writeday", sdf.format(dto.getWriteday()));
+	   
+	   arr.add(ob);
+   }
+%>
 
-</body>
-</html>
+<%=arr.toString()%>

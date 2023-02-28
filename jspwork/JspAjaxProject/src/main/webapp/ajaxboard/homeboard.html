@@ -32,8 +32,14 @@ div.writeform{
 
 $(function(){
 	
+	list();
 	
-	
+	//입력폼 처음에 안보이게
+	$("div.writeform").hide();
+	//글쓰기 버튼 누르면 입력폼 나오게
+	$("#btnwrite").click(function(){
+		$("div.writeform").toggle();
+	});
 	//db추가
 	$("#btnadd").click(function(){
 		
@@ -61,6 +67,11 @@ $(function(){
 				$("#content").val("");
 				
 				//alert("success");
+				//다시출력
+				list();
+				
+				//입력폼 사라지게
+				$("div.writeform").hide();
 			}
 			
 		});
@@ -73,6 +84,55 @@ $(function(){
 
 
 //사용자함수 list
+
+function list()
+{
+	$.ajax({
+		
+		type:"get",
+		dataType:"json",
+		url:"listproc.jsp",
+		success:function(data){
+			
+			//alert(data.length);
+			
+			//제목출력
+			var s="<table class='table table-bordered' style='width:700px;'>";
+			s+="<caption><b>Ajax게시판</b></caption>";
+			s+="<tr bgcolor='#ccf'>";
+			s+="<th width='60'>번호</th>";
+			s+="<th width='360'>제목</th>";
+			s+="<th width='120'>작성자</th>";
+			s+="<th width='160'>작성일</th>";
+			s+="<tr>";
+			
+			if(data.length==0){
+				s+="<tr>";
+				s+="<td colspan='4' align='center'>";
+				s+="<b>저장된 글이 없습니다</b>";
+				s+="</td></tr>";
+			}else{
+				//데이터가 1개이상 있을때
+				$.each(data,function(i,item){
+					
+					s+="<tr>";
+					s+="<td align='center'>"+(i+1)+"</td>";
+					s+="<td>";
+					s+="<span num='"+item.num+"' class='detail'>"+item.subject+"</span>";
+					s+="</td>";
+					s+="<td>"+item.writer+"</td>";
+					s+="<td>"+item.writeday+"</td>";
+				});
+			}
+			
+			
+			s+="</table>";
+			$("#board").html(s);
+			
+		}
+	});
+}
+
 </script>
 </head>
 <body>
