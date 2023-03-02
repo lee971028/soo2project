@@ -16,7 +16,35 @@
 		
 		
 		//id중복체크
-		
+		$("#btncheck").click(function() {
+			
+			//id읽기
+			var id=$("#id").val();
+			//alert(id);
+			
+			$.ajax({
+				
+				type:"get",
+				url:"member/idsearch.jsp",
+				dataType:"json",
+				data:{"id":id},
+				success:function(res){
+					
+					//console.log(res.count);
+					if(res.count==1){
+						//alert("이미가입된 아이디입니다\n 다시 입력해주세요");
+						$("span.idsuccess").text("가입불가");
+						$("#id").val('');
+						$("#id").focus();
+						
+					}else{
+						//alert("가입이 가능한 아이디입니다");
+						$("span.idsuccess").text("가입가능");
+					}
+				}
+			});
+			
+		});
 		
 		
 		//이메일
@@ -49,7 +77,7 @@
 </head>
 <body>
 <form action="member/addaction.jsp" method="post" class="form-inline"
-	onsubmit="return passcheck(this)">
+	onsubmit="return passcheck(this)" name="f">
    <table class="table table-bordered" style="width: 500px;">
        <caption><b>회원가입</b></caption>
          <tr>
@@ -59,6 +87,7 @@
                required="required" style="width: 120px;">
                
                <button type="button" class="btn btn-danger" id="btncheck">중복체크</button>
+               <span class="idsuccess"></span>
              </td>
          </tr>
          
