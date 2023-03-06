@@ -70,6 +70,30 @@
 		 $(this).parent().find("div.answer").toggle();
 	  });
 	  
+	  
+	  //댓글삭제 이벤트
+	  $("span.adel").click(function(){
+		  
+		  var idx=$(this).attr("idx");
+		  //alert(idx);
+		  
+		  $.ajax({
+			  
+			  type:"get",
+			  dataType:"html",
+			  url:"guest/answerdelete.jsp",
+			  data:{"idx":idx},
+			  success:function(){
+				  
+				  //새로고침
+				  location.reload();
+			  }
+		  });
+		  
+	  });
+	  
+	  
+	  
   });
 </script>
 </head>
@@ -183,9 +207,7 @@
   	  		      
   	  		      
   	  		      <!-- 댓글 -->
-  	  		      
-  	  		      
-  	  		      
+  	  		     
   	  		      <div class="answer">
 	  	  		    <%
 	  	  		    if(loginok!=null){%>
