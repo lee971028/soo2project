@@ -19,6 +19,11 @@
 <%
  //프로젝트 경로구하기
  String root=request.getContextPath();
+
+//아이디 
+String myid=(String)session.getAttribute("myid");
+//로그인상태
+String loginok=(String)session.getAttribute("loginok");
 %>
 <body>
   <%-- <a href="<%=root%>/index.jsp">메인</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -42,9 +47,18 @@
 					<li class="parent">
 						<a href="http://www.freshdesignweb.com/responsive-drop-down-menu-jquery-css3-using-icon-symbol.html"> about Member</a>
 						<ul class="sub-menu">
-							<li><a href="<%=root%>/index.jsp?main=login/loginmain.jsp"><i class="icon-wrench"></i> 로그인</a></li>
+							
 							<li><a href="<%=root%>/index.jsp?main=member/addform.jsp"><i class="icon-credit-card"></i>  회원가입</a></li>
-							<li><a href="<%=root%>/index.jsp?main=member/memberlist.jsp"><i class="icon-gift"></i> 회원목록</a></li>
+							<li><a href="index.jsp?main=member/myinfo.jsp"><i class="icon-credit-card"></i>  마이정보</a></li>
+							
+							<%
+							 //로그인중이고 그아이디가 관리자
+							 if(loginok!=null && myid.equals("admin")){%>
+								 
+								 <li><a href="<%=root%>/index.jsp?main=member/memberlist.jsp"><i class="icon-gift"></i> 회원목록</a></li>
+							 <%}
+							%>
+							
 							
 						</ul>
 					</li>

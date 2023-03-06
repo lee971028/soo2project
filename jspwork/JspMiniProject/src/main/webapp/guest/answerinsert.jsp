@@ -12,12 +12,6 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-  <%
-     //loginok세션제거
-     session.removeAttribute("loginok");
-  
-     //loginmain이동
-     response.sendRedirect("../index.jsp?main=login/loginmain.jsp");
-  %>
+
 </body>
 </html>

@@ -12,6 +12,18 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
-
+   <%
+    //세션에 저장된 loginok를 읽는다
+    String loginok=(String)session.getAttribute("loginok");
+   
+   if(loginok==null)  //로그아웃
+   {%>
+	   <jsp:include page="loginform.jsp"/>
+   <%}else{%>
+	   
+	   <jsp:include page="logoutform.jsp"/>
+   <%}
+   
+   %>
 </body>
 </html>

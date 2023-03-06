@@ -14,60 +14,51 @@
         rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-<style type="text/css">
-	th,td{
-	   text-align: center;
-	}
-</style>
-<script type="text/javascript">
-   function delfunc(num){
-	   
-	   var yes=confirm("정말 강퇴처리 하시겠습니까?");
-	   
-	   if(yes)
-		   location.href='member/memberdelete.jsp?num='+num;
-   }
 
-</script>
 </head>
 <%
 //전체멤버 정보 가져오기
 MemberDao dao=new MemberDao();
 List<MemberDto> list=dao.getAllMembers();
 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
-int no=1;
+
+//세션
+String loginok=(String)session.getAttribute("loginok");
+String myid=(String)session.getAttribute("myid");
 
 %>
 <body>
-<table class="table table-bordered" style="width: 1000px;">
-   <caption><b>전체회원목록</b></caption>
-     <tr bgcolor="#fff0f5" >
-       <th width="80">번호</th>
-       <th width="120">회원명</th>
-       <th width="100" >아이디</th>
-       <th width="220">헨드폰</th>
-       <th width="480">주소</th>
-       <th width="260">이메일</th>
-       <th width="220">가입일</th>
-       <th width="160">편집</th>
-     </tr>
-     <%
+<table class="table table-bordered" style="width: 500px;">
+	<%
      for(MemberDto dto:list)
      {%>
+     
+     <%
+     //로그인중이면서 로그인한 아이디와 같은사람만 보기
+     if(loginok!=null && dto.getId().equals(myid)){%>
+    	 
     	 <tr>
-    	    <td><%=no++ %></td>
-    	    <td><%=dto.getName() %></td>
-    	    <td><%=dto.getId() %></td>
-    	    <td><%=dto.getHp() %></td>
-    	    <td><%=dto.getAddr() %></td>
-    	    <td><%=dto.getEmail() %></td>
-    	    <td><%=sdf.format(dto.getGaipday()) %></td>
-    	    <td>
+    	    
+    	    <td><%=dto.getName() %><br>
+    	    <%=dto.getId() %><br>
+    	    <%=dto.getHp() %><br>
+    	    <%=dto.getAddr() %><br>
+    	    <%=dto.getEmail() %><br>
+    	    <%=sdf.format(dto.getGaipday()) %><br>
+    	    <div style="float: right;">
+    	    	<button type="button" class="btn btn-danger btn-xs"
+    	       onclick="delfunc(<%=dto.getNum()%>)">수정</button>
     	       
-    	       <button type="button" class="btn btn-danger btn-xs"
+    	       	<button type="button" class="btn btn-danger btn-xs"
     	       onclick="delfunc(<%=dto.getNum()%>)">삭제</button>
+    	     </div>
     	    </td>
     	 </tr>
+     <%}
+     %>
+     
+     
+    	 
      <%}
      %>
 </table>

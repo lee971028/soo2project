@@ -1,3 +1,5 @@
+<%@page import="data.dto.GuestDto"%>
+<%@page import="data.dao.GuestDao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -37,16 +39,34 @@
    }
 </script>
 </head>
+<%
+	//num
+	String num=request.getParameter("num");
+    //현재페이지읽기
+    String currentPage=request.getParameter("currentPage");
+    
+    //db에서 dto읽어오기
+    GuestDao dao=new GuestDao();
+    GuestDto dto=dao.getData(num);
+	
+
+%>
 <body>
   
   <div>
   	<!-- 이미지미리보기할 위치 -->
-  	<img id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;">
+  	<img id="showimg" style="position: absolute; left: 800px; top: 100px; max-width: 200px;"
+  	src="<%=dto.getPhotoname()==null?"":"save/"+dto.getPhotoname()%>">
      
-     <form action="guest/addaction.jsp" method="post" enctype="multipart/form-data">
+     <form action="guest/updateaction.jsp" method="post" enctype="multipart/form-data">
+     
+     <!-- 수정폼 반드시 num,currentPge도 같이 hiddene으로 넘긴다 -->
+     <input type="hidden" name="num" value="<%=num%>">
+     <input type="hidden" name="currentPage" value="<%=currentPage%>">
+     
        <table style="width: 600px;">
            <caption>
-             <b>방명록 등록</b>
+             <b>방명록 수정</b>
              <span class="glyphicon glyphicon-camera camera"></span>
              <input type="file" name="photo" id="photo" style="visibility: hidden;"
              
@@ -56,11 +76,11 @@
            <tr height="100">
              <td width="500">
                 <textarea style="width: 480px; height: 100px;"
-                class="form-control" name="content" required="required"></textarea>
+                class="form-control" name="content" required="required"><%=dto.getContent() %></textarea>
              </td>
              <td>
-               <button type="submit" class="btn btn-info"
-               style="width: 100px; height: 100px;">등록</button>
+               <button type="submit" class="btn btn-success"
+               style="width: 100px; height: 100px;">수정</button>
              </td>
            </tr>
        </table>

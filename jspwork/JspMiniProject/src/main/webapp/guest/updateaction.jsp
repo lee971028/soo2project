@@ -20,21 +20,32 @@
 			new DefaultFileRenamePolicy());
 	
 	//multi변수로 모든 폼데이타 읽어오기
+	String num=multi.getParameter("num");
 	String content=multi.getParameter("content");
 	String photoname=multi.getFilesystemName("photo");
 	
-	//dto에 저장
-	GuestDto dto=new GuestDto();
-	dto.setMyid(myid);
-	dto.setContent(content);
-	dto.setPhotoname(photoname);
+	//페이지 번호 읽기
+	String currentPage=multi.getParameter("currentPage");
 	
 	//dao
 	GuestDao dao=new GuestDao();
-	dao.insertGuest(dto);
 	
-	//방명록 목록으로 이동
-	response.sendRedirect("../index.jsp?main=guest/guestlist.jsp");
+	//기존의 포토명가져오기
+	String gu_photoname=dao.getData(num).getPhotoname();
+	
+	
+	//dto에 저장
+	GuestDto dto=new GuestDto();
+	dto.setNum(num);
+	dto.setMyid(myid);
+	dto.setContent(content);
+	dto.setPhotoname(photoname==null?gu_photoname:photoname);
+	
+	//update
+	dao.updateGuest(dto);
+	
+	//방명록 목록으로 이동(수정했던페이지로 이동)
+	response.sendRedirect("../index.jsp?main=guest/guestlist.jsp?currentPage="+currentPage);
 
 	
 	}catch(Exception e){

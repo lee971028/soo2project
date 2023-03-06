@@ -50,7 +50,7 @@ div.main{
 	
 	width: 1200px;
 	height: 800px;
-	font-size: 12pt;
+	font-size: 15pt;
 	top: 280px;
 	left: 350px;
 	padding-left: 100px;
