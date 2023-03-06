@@ -66,7 +66,8 @@
 	  //댓글클릭시 댓글부분이 보였다 안보였다 하기
 	  $("span.answer").click(function(){
 		  
-		  $("div.answer").toggle();
+		 // $("div.answer").toggle();
+		 $(this).parent().find("div.answer").toggle();
 	  });
 	  
   });
@@ -148,11 +149,21 @@
   	  		<table class="table" style="width: 600px;">
   	  		  <tr>
   	  		    <td>
+  	  		    
+  	  		    
+  	  		    <%
+  	  		      //각방명록에 달린 댓글목록 가져오기
+  	  		      AnswerDao adao=new AnswerDao();
+  	  		      List<AnswerDto> alist=adao.getAllAnswers(dto.getNum());
+  	  		      
+  	  		      %>
+  	  		    
+  	  		    
   	  		    <b><span class="glyphicon glyphicon-user"></span>
   	  		      <%=name %>(<%=dto.getMyid() %>)</b>
   	  		      
   	  		      
-  	  		      <span class="answer" style="cursor: pointer;" num="<%=dto.getNum()%>">댓글0</span>
+  	  		      <span class="answer" style="cursor: pointer;" num="<%=dto.getNum()%>">댓글<%=alist.size() %></span>
   	  		      <span class="likes" style="margin-left: 20px; cursor: pointer;"
   	  		      num="<%=dto.getNum()%>">추천</span>
   	  		      <span class="chu"><%=dto.getChu() %></span>
@@ -169,30 +180,10 @@
   	  		      <span class="day"><%=sdf.format(dto.getWriteday()) %></span>
   	  		       
   	  		      
-  	  		    </td>
-  	  		  </tr>
-  	  		  
-  	  		  <tr>
-  	  		    <td>
-  	  		      <!-- 이미지가 null아닌경우만 출력 -->
-  	  		      <%
-  	  		        if(dto.getPhotoname()!=null){%>
-  	  		        	
-  	  		        	<a href="save/<%=dto.getPhotoname()%>" target="_blank">
-  	  		        	<img alt="" src="save/<%=dto.getPhotoname()%>" align="left"
-  	  		        	style="width: 100px;"></a>
-  	  		        <%}
-  	  		      %>
   	  		      
-  	  		      <%=dto.getContent().replace("\n","<br>")%>
   	  		      
   	  		      <!-- 댓글 -->
-  	  		      <%
-  	  		      //각방명록에 달린 댓글목록 가져오기
-  	  		      AnswerDao adao=new AnswerDao();
-  	  		      List<AnswerDto> alist=adao.getAllAnswers(dto.getNum());
   	  		      
-  	  		      %>
   	  		      
   	  		      
   	  		      <div class="answer">
@@ -225,15 +216,82 @@
 	  	  		    %>
 	  	  		  
 	  	  		     <div class="answerlist">
-	  	  		       댓글출력
+	  	  		       <table class="table" style="width: 500px;">
+	  	  		          <%
+	  	  		          for(AnswerDto adto:alist)
+	  	  		          {%>
+	  	  		        	  <tr>
+	  	  		        	    <td width="60" align="left">
+	  	  		        	       <span class="glyphicon glyphicon-user"></span>
+	  	  		        	    </td>
+	  	  		        	    <td>
+	  	  		        	       <%
+	  	  		        	       //작성자명얻기
+	  	  		        	       String aname=mdao.getName(adto.getMyid()); %>
+	  	  		        	       	
+	  	  		        	       	
+	  	  		        	       	<b><%=aname %></b>&nbsp; 
+	  	  		        	       	<%
+	  	  		        	       	//글작성자와 댓글쓴 작성자가 같은경우
+	  	  		        	       	
+	  	  		        	       	if(dto.getMyid().equals(adto.getMyid())){%>
+	  	  		        	       		
+	  	  		        	       		<span style="color: red;">작성자</span>
+	  	  		        	       	<%}
+	  	  		        	       	%> 
+	  	  		        	       	
+	  	  		        	       	<span style="font-size: 9pt; color: gray; margin-left: 20px">
+	  	  		        	       	  <%=sdf.format(adto.getWriteday()) %>
+	  	  		        	       	</span>	
+	  	  		        	       	
+	  	  		        	       	<%
+	  	  		        	       	//댓글삭제는 로그인중이면서 로그인한 아이디와 같을경우에만 삭제아이콘 보이게
+	  	  		        	       	if(loginok!=null && adto.getMyid().equals(myid)){%>
+	  	  		        	       		
+	  	  		        	       		<span class="adel glyphicon glyphicon-trash" idx="<%=adto.getIdx()%>"
+	  	  		        	       		style="font-size: 12pt; color: green; margin-left: 10pt; cursor: pointer;"></span>
+	  	  		        	       	<%}
+	  	  		        	       	
+	  	  		        	       	%>  
+	  	  		        	       	
+	  	  		        	       	<br>
+	  	  		        	       	<span style="font-size: 10pt;">
+	  	  		        	       	  <%=adto.getContent().replace("\n", "<br>") %>
+	  	  		        	       	</span>
+	  	  		        	       	<br>		        	      
+	  	  		        	    </td>
+	  	  		        	  </tr>
+	  	  		        	  
+	  	  		          <%}
+	  	  		          %>
+	  	  		       </table>
 	  	  		     </div>
 	  	  		  
 	  	  		  </div>
-  	  		       
+  	  		      
+  	  		      
+  	  		      
   	  		    </td>
   	  		  </tr>
   	  		  
-  	  		  
+  	  		  <tr>
+  	  		    <td>
+  	  		      <!-- 이미지가 null아닌경우만 출력 -->
+  	  		      <%
+  	  		        if(dto.getPhotoname()!=null){%>
+  	  		        	
+  	  		        	<a href="save/<%=dto.getPhotoname()%>" target="_blank">
+  	  		        	<img alt="" src="save/<%=dto.getPhotoname()%>" align="left"
+  	  		        	style="width: 100px;"></a>
+  	  		        <%}
+  	  		      %>
+  	  		      
+  	  		      <%=dto.getContent().replace("\n","<br>")%>
+  	  		      
+  	  		      
+  	  		       
+  	  		    </td>
+  	  		  </tr>
   	  		    
   	  		</table>
   	  	<%}
@@ -241,7 +299,7 @@
   </div>
   
   <!-- 페이징 처리 -->
-	<div style="width: 500px; text-align: center;"  >
+	<div style="width: 500px; text-align: center;">
 		<ul class="pagination">
 			<%
 			
