@@ -1,3 +1,5 @@
+<%@page import="data.dao.SmartDao"%>
+<%@page import="data.dto.SmartDto"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -12,6 +14,32 @@
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 </head>
 <body>
+<%
+  //엔코딩
+  request.setCharacterEncoding("utf-8");
 
+//데이타 읽어서 dto읽기
+SmartDto dto=new SmartDto();
+
+String writer=request.getParameter("writer");
+String subject=request.getParameter("subject");
+String content=request.getParameter("content");
+
+
+dto.setWriter(writer);
+dto.setSubject(subject);
+dto.setContent(content);
+
+
+//dao선언후 insert호출
+SmartDao dao=new SmartDao();
+dao.insertSmart(dto);
+
+//방금추가된 num값얻기
+int num=dao.getMaxNum();
+
+//gaipsuccess페이지로 이동
+response.sendRedirect("../index.jsp?main=board/detailview.jsp?num="+num+"&currentPage=1");
+%>
 </body>
 </html>
