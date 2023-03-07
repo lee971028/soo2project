@@ -19,6 +19,24 @@ span.day{
   font-size: 0.8em;
 }
 </style>
+
+<script type="text/javascript">
+$(function(){
+	
+	//처음에 시작시 리스트 호출
+	
+	
+	
+});
+
+
+//list 사용자정의함수
+function list()
+{
+	
+}
+
+</script>
 </head>
 <body>
 <%
@@ -57,6 +75,27 @@ span.day{
            <%=dto.getContent() %>
          </td>
        </tr>
+       
+       <!-- 댓글 -->
+       <tr>
+         <td>
+            <b class="acount">댓글 <span>0</span></b>
+            <div class="alist">
+               댓글목록
+            </div>
+            
+            <div class="aform form-inline">
+              <input type="text" id="nickname" class="form-control" style="width: 100px;"
+              placeholder="닉네임입력">
+              <input type="text" id="content" class="form-control" style="width: 300px;"
+              placeholder="댓글입력">
+              <button type="button" id="btnanswer" class="btn btn-info">저장</button>
+              
+            </div>
+         </td>
+       </tr>
+       
+       
        
        <tr>
          <td align="right">
