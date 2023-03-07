@@ -21,6 +21,57 @@
 }
 
 </style>
+
+<script type="text/javascript">
+$(function(){
+	
+	//전체체크클릭시 체크값 얻어서 모든체크값 전달
+	$(".alldelcheck").click(function(){
+		
+		var chk=$(this).is(":checked"); //true,false반환
+		//alert(chk);
+		
+		//전체체크값을 글앞의 체크에 일괄전달
+		$(".alldel").prop("checked",chk);
+	});
+	
+	
+	//삭제버튼 클릭시 삭제
+	$("#btndel").click(function(){
+		
+		//체크된 길이
+		var len=$(".alldel:checked").length;
+		//alert(len);
+		
+		if(len==0){
+			alert("최소 1개 이상의 글을 선택해 주세요");
+		}else{
+			
+			var a=confirm(len+"개의 글을 삭제하려면 [확인]을 눌러주세요");
+			
+			//체크된곳의 value(num)얻기
+			
+			var n="";
+			$(".alldel:checked").each(function(idx){
+				
+				n+=$(this).val()+",";
+			});
+			
+			//마지막 컴마제거하기
+			n=n.substring(0, n.length-1);
+			//alert(n);
+			
+			//삭제파일로 전송
+			location.href="board/alldelete.jsp?nums="+n;
+		}
+	});
+	
+	
+});
+
+</script>
+
+
 </head>
 <%
 

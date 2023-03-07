@@ -13,6 +13,12 @@
         rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<style type="text/css">
+span.day{
+  color: gray;
+  font-size: 0.8em;
+}
+</style>
 </head>
 <body>
 <%
@@ -65,7 +71,7 @@
            
            
            <button type="button" class="btn btn-default" 
-           onclick="location.href=''"><span class="glyphicon glyphicon-remove"></span>삭제</button>
+           onclick="funcdel(<%=num%>,<%=currentPage%>)"><span class="glyphicon glyphicon-remove"></span>삭제</button>
            
            
            <button type="button" class="btn btn-default" 
@@ -76,5 +82,20 @@
   </table>
 </div>
 
+
+<script type="text/javascript">
+  function funcdel(num,currentPage){
+	  
+	 // alert(num+","+currentPage);
+	 
+	 var a=confirm("삭제하려면 [확인] 을 눌러주세요");
+	 
+	 if(a){
+		 location.href="board/delete.jsp?num="+num+"&currentPage="+currentPage;
+	 }
+	 
+  }
+
+</script>
 </body>
 </html>
