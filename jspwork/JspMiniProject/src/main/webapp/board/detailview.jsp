@@ -18,13 +18,85 @@ span.day{
   color: gray;
   font-size: 0.8em;
 }
+
+div.alist{
+  margin-left: 20px;
+}
+
+div.alist span.aday{
+  float: right;
+  font-size: 0.8em;
+  color: gray;
+  
+}
+
+button.adel{
+   margin-left: 10px;
+}
+
 </style>
 
 <script type="text/javascript">
 $(function(){
 	
 	//처음에 시작시 리스트 호출
+	list();
 	
+	//댓글부분에 넣을 num출력호출
+	var num=$("#num").val();
+	//alert(num);
+	
+	//insert
+	$("#btnanswer").click(function(){
+		
+		var nickname=$("#nickname").val();
+		var content=$("#content").val();
+		
+		$.ajax({
+			
+			type:"get",
+			url:"smartanswer/insertanswer.jsp",
+			dataType:"html",
+			data:{"num":num,"nickname":nickname,"content":content},
+			success:function(){
+				
+				//alert("success");
+				//기존입력값 지우기
+				$("#nickname").val(" ");
+				$("#content").val('');
+				
+				//댓글추가한후 댓글목록 다시출력
+				list();
+			}
+			
+		});
+		
+	});
+	
+	
+	//삭제
+	
+	$(document).on("click",".adel",function(){
+		
+		var a=confirm("댓글을 삭제하려면 [확인]을 눌러주세요");
+		
+		var idx=$(this).attr("idx");
+		//alert(idx);
+		
+		if(a){
+			$.ajax({
+				
+				type:"get",
+				url:"smartanswer/deleteanswer.jsp",
+				dataType:"html",
+				data:{"idx":idx},
+				success:function(){
+					
+					list();
+				}
+			});
+		}
+	});
 	
 	
 });
@@ -33,7 +105,32 @@ $(function(){
 //list 사용자정의함수
 function list()
 {
+	console.log("list num="+$("#num").val());
 	
+	$.ajax({
+		
+		type:"get",
+		url:"smartanswer/listanswer.jsp",
+		dataType:"json",
+		data:{"num":$("#num").val()},
+		success:function(res){
+			
+			//댓글갯수출력
+			$("b.acount>span").text(res.length);
+			
+			var s="";
+			
+			$.each(res,function(idx,item){
+				
+				s+="<div>"+item.nickname+":  "+item.content;
+				s+="<span class='aday'>"+item.writeday+"</sapn>";
+				s+="<button type='button' idx="+item.idx+" class='btn btn-info btn-xs adel'>삭제</button>";
+				s+="</div>";
+			});
+			
+			$("div.alist").html(s);
+		}
+	});
 }
 
 </script>
@@ -57,7 +154,10 @@ function list()
 %>
 
 <div style="margin: 30px 30px;">
-  <table class="table table-bordered" style="width: 500px;">
+
+<input type="hidden" id="num" value="<%=num%>">
+
+  <table class="table table-bordered" style="width: 600px;">
     <caption>
             <h3><b><%=dto.getSubject() %></b></h3></caption>
        
@@ -79,7 +179,7 @@ function list()
        <!-- 댓글 -->
        <tr>
          <td>
-            <b class="acount">댓글 <span>0</span></b>
+            <b class="acount">댓글 <span style="color: red; font-weight: bold;">0</span></b>
             <div class="alist">
                댓글목록
             </div>
