@@ -13,6 +13,7 @@
         rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style type="text/css">
 span.day{
   color: gray;
@@ -32,6 +33,9 @@ div.alist span.aday{
 
 button.adel{
    margin-left: 10px;
+}
+button.amod{
+   margin-left: 5px;
 }
 
 </style>
@@ -99,6 +103,51 @@ $(function(){
 	});
 	
 	
+	//수정폼 띠우기..모달
+	$(document).on("click",".amod",function(){
+		
+		 idx=$(this).attr("idx");
+		//alert(idx);
+		
+		$.ajax({
+			
+			type:"get",
+			url:"smartanswer/jsonupdateform.jsp",
+			dataType:"json",
+			data:{"idx":idx},
+			success:function(res){
+				//수정폼에 닉네임,내용띄우기
+				$("#unickname").val(res.nickname);
+				$("#ucontent").val(res.content);
+			}
+			
+		});
+		
+		$("#myModal").modal();
+	});
+	
+	
+	//수정
+	$(document).on("click","#btnupdate",function(){
+		
+		var nickname=$("#unickname").val();
+		var content=$("#ucontent").val();
+		
+		//alert(nickname+","+content);
+		
+		$.ajax({
+			
+			type: "get",
+			url:"smartanswer/updateanswer.jsp",
+			dataType:"html",
+			data:{"idx":idx,"nickname":nickname,"content":content},
+			success:function(){
+				list();
+			}
+		});
+	});
+	
+	
 });
 
 
@@ -125,6 +174,7 @@ function list()
 				s+="<div>"+item.nickname+":  "+item.content;
 				s+="<span class='aday'>"+item.writeday+"</sapn>";
 				s+="<button type='button' idx="+item.idx+" class='btn btn-info btn-xs adel'>삭제</button>";
+				s+="<button type='button' idx="+item.idx+" class='btn btn-success btn-xs amod'>수정</button>";
 				s+="</div>";
 			});
 			
@@ -220,6 +270,36 @@ function list()
        </tr>
   </table>
 </div>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">댓글수정</h4>
+        </div>
+        
+        
+        <div class="modal-body">
+          <b>닉네임: </b>
+          <input type="text" id="unickname" style="width: 100px;">
+          <b>댓글내용: </b>
+          <input type="text" id="ucontent" style="width: 200px;">
+        </div>
+        
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"
+          id="btnupdate">댓글수정</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
 
 
 <script type="text/javascript">

@@ -1,3 +1,4 @@
+<%@page import="data.dao.SmartAnswerDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="data.dto.SmartDto"%>
 <%@page import="java.util.List"%>
@@ -117,6 +118,18 @@ SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
 no=totalCount-(currentPage-1)*perPage;
 
+
+
+//댓글에 관한 dao
+SmartAnswerDao adao=new SmartAnswerDao();
+
+ for(SmartDto dto:list)
+{
+	//댓글변수에 댓글총개수넣기
+	int acount=adao.getAllAnswers(dto.getNum()).size();
+	dto.setAnswercount(acount);
+} 
+
 %>
 <body>
 <div style="margin: 30px 30px; width: 800px;">
@@ -151,7 +164,16 @@ no=totalCount-(currentPage-1)*perPage;
         		  </td>
         		  
         		  <td>
+        		  
+        		  
         		  <a href="index.jsp?main=board/detailview.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>"><%=dto.getSubject() %></a>
+        		  
+        		  <%
+        		  if(dto.getAnswercount()>0)
+        		  {%>
+        			  <a href="index.jsp?main=board/detailview.jsp?num=<%=dto.getNum()%>&currentPage=<%=currentPage%>" style="color: red;">[<%=dto.getAnswercount()%> ]</a>
+        		  <%}
+        		  %> 
         		  </td>
         		  <td align="center"><%=dto.getWriter() %></td>
         		  <td><%=sdf.format(dto.getWriteday()) %></td>
