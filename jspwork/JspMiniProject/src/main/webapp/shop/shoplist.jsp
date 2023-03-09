@@ -24,7 +24,18 @@
   }
 </style>
 <script type="text/javascript">
-   //$("#tabs").tabs();
+  $(function(){
+	  
+	  $("a.godetail").click(function(){
+	    	 
+	    	 var shopnum=$(this).attr("shopnum");
+	    	 //alert(shopnum);
+	    	 
+	    	 location.href="index.jsp?main=shop/detailpage.jsp?shopnum="+shopnum;
+	     });
+  })
+
+     
 
 </script>
 </head>
@@ -66,7 +77,8 @@
                 	
                 	%>
                 	<td>
-                      <a><img src="shopsave/<%=photo%>" class="photo">
+                      <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" 
+                      class="godetail"><img src="shopsave/<%=photo%>" class="photo">
                       <br>
                       <%=dto.getSangpum() %>
                       <b style="color: red; font-size: 0.8em;"><%=sale %>%</b>
@@ -129,7 +141,8 @@
                 	
                 	%>
                 	<td>
-                      <a><img src="shopsave/<%=photo%>" class="photo">
+                      <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" 
+                      class="godetail"><img src="shopsave/<%=photo%>" class="photo">
                       <br>
                       <%=dto.getSangpum() %>
                       <b style="color: red; font-size: 0.8em;"><%=sale %>%</b>
@@ -192,7 +205,8 @@
                 	
                 	%>
                 	<td>
-                      <a><img src="shopsave/<%=photo%>" class="photo">
+                      <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" 
+                      class="godetail"><img src="shopsave/<%=photo%>" class="photo">
                       <br>
                       <%=dto.getSangpum() %>
                       <b style="color: red; font-size: 0.8em;"><%=sale %>%</b>
@@ -255,7 +269,8 @@
                 	
                 	%>
                 	<td>
-                      <a><img src="shopsave/<%=photo%>" class="photo">
+                      <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" 
+                      class="godetail"><img src="shopsave/<%=photo%>" class="photo">
                       <br>
                       <%=dto.getSangpum() %>
                       <b style="color: red; font-size: 0.8em;"><%=sale %>%</b>
@@ -318,7 +333,8 @@
                 	
                 	%>
                 	<td>
-                      <a><img src="shopsave/<%=photo%>" class="photo">
+                      <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" 
+                      class="godetail"><img src="shopsave/<%=photo%>" class="photo">
                       <br>
                       <%=dto.getSangpum() %>
                       <b style="color: red; font-size: 0.8em;"><%=sale %>%</b>
@@ -381,7 +397,8 @@
                 	
                 	%>
                 	<td>
-                      <a><img src="shopsave/<%=photo%>" class="photo">
+                      <a shopnum="<%=dto.getShopnum()%>" style="cursor: pointer;" 
+                      class="godetail"><img src="shopsave/<%=photo%>" class="photo">
                       <br>
                       <%=dto.getSangpum() %>
                       <b style="color: red; font-size: 0.8em;"><%=sale %>%</b>
