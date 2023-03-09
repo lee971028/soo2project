@@ -89,7 +89,29 @@
 		  
 		  //form태그 모든값 가져오기(name)
 		  var formdata=$("#frm").serialize();
-		  alert(formdata);
+		  //alert(formdata);
+		  
+		  
+		  $.ajax({
+			  
+			  type: "post",
+			  dataType:"html",
+			  data:formdata,
+			  url:"shop/detailproc.jsp",
+			  success:function(){
+				  
+				 // alert("성공");
+				 
+				 var a=confirm("장바구니에 저장하였습니다 \n장바구니로 이동하려면 [확인]을 눌러주세요");
+				 
+				 if(a){
+					 location.href="index.jsp?main=shop/mycart.jsp";
+				 }
+			  }
+		  });
+		  
+		  
+		  
 	  });
 	
 	</script>
