@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +26,8 @@ div.writeform{
   	left: 900px;
   	top: 100px;
   	font-size: 13pt;
-  	font-family: 'Single Day';}
+  	font-family: 'Single Day';
+}
 
 span.detail{
   cursor: pointer;
@@ -34,14 +37,38 @@ div.detail button{
   width: 80px;
   margin-right: 10px;
 }
+
+#page{
+	position: absolute;
+  	left: 200px;
+  	top: 700px;
+  	font-size: 13pt;
+  	
+}
 </style>
+
+
+<%
+int currentPage;
+
+if(request.getParameter("currentPage")==null)
+	currentPage=1;
+else
+	currentPage=Integer.parseInt(request.getParameter("currentPage"));
+
+%>
+
 
 <script type="text/javascript">
 
 $(function(){
 	
-	list();
 	
+	currentPage=<%=currentPage%>;
+	
+	
+	list();
+	pagebu();
 	
 	
 	//입력폼 처음에 안보이게
@@ -226,6 +253,7 @@ function list()
 		type:"get",
 		dataType:"json",
 		url:"listproc.jsp",
+		data:{"currentPage":currentPage},
 		success:function(data){
 			
 			//alert(data.length);
@@ -267,11 +295,54 @@ function list()
 	});
 }
 
-</script>
-</head>
 
+
+
+//ajax page 버튼
+function pagebu() 
+{
+	//var searchtool=$("#searchtool").val();
+	//alert(searchtool);
+	
+	$.ajax({
+		type:"get",
+		dataType:"json",
+		data:{"currentPage":currentPage},
+		url:"paging.jsp",
+		success:function(res){
+			alert(res.startPage);
+			
+			var s="<ul class='pagination'>";
+			
+			if(res.startPage>1){
+				s+="<li class='page-item'><a class='page-link' href='home.jsp?currentPage="+(res.startPage-1)+"'>이전</a></li>";
+			}
+			for(var pp=res.startPage;pp<=res.endPage;pp++){
+				if(pp==res.currentPage){
+					s+="<li class='page-item'><a class='page-link' href='home.jsp?currentPage="+pp+'>"+pp+"</a></li>";
+				}else{
+					s+="<li class='page-item'><a class='page-link' href='home.jsp?currentPage="+pp+"'>"+pp+"</a></li>";
+				}
+			}
+			if(res.endPage<res.totalPage){
+				s+="<li class='page-item'><a class='page-link' href='home.jsp?currentPage="+(res.endPage+1)+"'>다음</a></li>";
+			}
+			s+="</ul>";
+			
+			$("#page").html(s);
+		}
+	});
+}
+
+
+</script>
+
+
+
+
+</head>
 <body>
-  <div>
+<div>
      <button type="button" class="btn btn-info" id="btnwrite">글쓰기</button>
      <div id="board">list</div>
      <div class="detail">detail</div>
@@ -381,7 +452,7 @@ function list()
        </form>
   </div>
   
-  <div style="width: 800px; margin-left: 500px;display: flex; justify-content: center;" class='container mt-3' id='page'></div>
+  <div style="width: 800px; margin-left: 500px; display: flex; justify-content: center;" class='container mt-3' id='page'></div>
   
   
 </body>

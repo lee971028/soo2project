@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import mysql.db.DbConnect;
 
@@ -138,5 +140,78 @@ public class AjaxBoardDao {
 		}
 		
 	}
+	
+	
+	//
+	public int getTotalCount() {
+		int n=0;
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select count(*) from ajaxboard";
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next())
+			{
+				n=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(rs, pstmt, conn); 
+		}
+		return n;
+	}
+	
+	
+	public List<AjaxBoardDto> getpagelist(int start,int perpage){
+		List<AjaxBoardDto> list=new Vector<>();
+		
+		Connection conn=db.getConnection();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		String sql="select * from ajaxboard order by num desc limit ?,?";
+                  //select * from Question where que_subject like '%두번%' order by que_num desc;
+		
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, perpage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				AjaxBoardDto dto=new AjaxBoardDto();
+				
+				dto.setNum(rs.getString("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setAvata(rs.getString("avata"));
+				dto.setWriteday(rs.getTimestamp("writeday"));
+				
+				list.add(dto);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			db.dbClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	
+	
 	
 }
