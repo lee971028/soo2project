@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+
+</head>
+
+<body>
+<header th:replace="~{fragment/header :: header}"></header>
+<h3>Home 입니다</h3>
+  <img src="c4.png"><br><br>
+  <h3>현재날짜:
+    <span th:text="${#calendars.format(#calendars.createNow(),'yyyy년MM월dd일 HH시mm분')}"></span></h3>
+  <a th:href="@{/hello1}">타임리프 hello1</a><br>
+	<a th:href="@{/hello2(name='이영자',age=21)}">타임리프 hello2</a><br>
+  <a th:href="@{/list}">타임리프 list</a><br>
+  <a th:href="@{/login1}">admin 로그인</a><br>
+  <a th:href="@{/login2}">angel  로그인</a><br>
+
+<!--  버튼으로 이동시 -->
+<button type="button" onclick="location.href='hello1'">hello1</button>
+
+<!-- 이거도 됨 -->
+<a href="hello2?name=lee&age=30">hello2</a>
+</body>
+</html>

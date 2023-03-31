@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+<h3>ThymeLeaf 를 이용한 컨트롤러값 출력</h3>
+  <hr/>
+  <h4 th:text="${message}"></h4>
+  <h4>날짜 :
+    <span th:text="${#calendars.format(today,'yyyy-MM-dd HH:mm')}"></span>
+  </h4>
+<h5>[[${dto}]]</h5>
+<pre>
+    <b>dto 안의 변수값 출력</b>
+    [[${dto.num}]]
+    [[${dto.sangpum}]]
+</pre>
+</body>
+</html>
