@@ -18,6 +18,7 @@
    <li><a href="happy">resource 이미지 출력(아무거나 하나)_happy.jsp에출력할것</a></li>
    <li><a href="hello">msg값 전달..그아래 이미지 출력_hello.jsp에 출력</a></li>
    <li><a href="nice/hi">name,addr값 전달_nace.jsp에 출력할것</a></li>
+   <li><a href="data/myform">입력폼</a></li>
 </ul>
 </body>
 </html>
