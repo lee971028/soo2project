@@ -12,9 +12,7 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-<h2>제목: ${title }</h2>
-<c:forEach var="im" items="${files }">
-  <img alt="" src="../photo/${im }" style="max-width: 200px; border: 1px solid gray;">
-</c:forEach>
+ <!-- <a href="samsung/list">리스트</a> -->
+ <c:redirect url="samsung/list"></c:redirect>
 </body>
 </html>
