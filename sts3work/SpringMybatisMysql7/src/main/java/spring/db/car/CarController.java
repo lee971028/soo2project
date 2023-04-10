@@ -61,4 +61,20 @@ public class CarController {
 		return "car/updateform";
 	}
 	
+	//수정
+	@PostMapping("/samsung/update")
+	public String update(@ModelAttribute MyCarDto dto)
+	{
+		dao.updateMyCar(dto);
+		return "redirect:list";
+	}
+	
+	
+	//삭제
+	@GetMapping("/samsung/delete")
+	public String delete(String num)
+	{
+		dao.deleteCar(num);
+		return "redirect:list";
+	}
 }

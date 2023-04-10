@@ -16,4 +16,7 @@
 	  <update id="updateOfMyCar" parameterType="CarDto">
 	       update mycar set carname=#{carname},carprice=#{carprice},carcolor=#{carcolor},carguip=#{carguip} where num=#{num}
 	  </update>
+	  <delete id="deleteOfMyCar" parameterType="String">
+	    delete from mycar where num=#{num}
+	  </delete>
 	</mapper>
