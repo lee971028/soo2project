@@ -59,7 +59,20 @@
       
       <tr>
         <td>
-           <div id="answer"> 댓글목록출력예정</div>
+           <div id="answer"> 
+             <b>댓글 ${acount }</b><br>
+            <c:forEach var="a" items="${alist }">
+              ${a.nickname } : ${a.content }
+              &nbsp;&nbsp;
+              <span style="color: gray; font-size: 0.8em;">
+                <fmt:formatDate value="${a.writeday }" pattern="yyyy-MM-dd HH:mm"/>
+              </span>
+              &nbsp;&nbsp;
+              <span class="glyphicon glyphicon-pencil" style="cursor: pointer; color: green;"></span>
+              <span class="adel glyphicon glyphicon-remove" style="cursor: pointer; color: green;"
+              idx="${a.idx }"></span><br>
+            </c:forEach>
+           </div>
              
            <form action="ainsert" method="post" class="form-inline">
               <!-- hidden -->
@@ -98,5 +111,47 @@
       </tr>
   </table>
 </div>
+
+
+<script type="text/javascript">
+  //댓글삭제
+  $("span.adel").click(function(){
+	  
+	  var idx=$(this).attr("idx");
+	  //alert(idx);
+	  
+	  //비번입력
+	  var pass=prompt("비밀번호를 입력해 주세요");
+	  //alert(pass); 취소시 null 확인
+	  
+	  if(pass==null)
+		  return; //취소시 함수종료
+	  
+	  $.ajax({
+		  type:"get",
+		  dataType:"json",
+		  url:"adelete",
+		  data:{"idx":idx,"pass":pass},
+		  success:function(res){
+			 
+			  if(res.check==0){
+				  alert("비밀번호가 맞지않네요");
+			  }else{
+				  
+				  //메세지후 새로고침
+				  alert("댓글을 삭제했습니다");
+				  location.reload();
+			  }
+		  }
+		  
+		  
+	  });
+  });
+
+</script>
+
+
+
+
 </body>
 </html>

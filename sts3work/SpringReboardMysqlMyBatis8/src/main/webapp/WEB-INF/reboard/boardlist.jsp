@@ -56,6 +56,12 @@
                   <!--제목..여기통해서 내용보기로...  -->
                   <a href="content?num=${dto.num }&currentPage=${currentPage}">${dto.subject }</a>
                   
+                  
+                  <!--댓글개수 출력  -->
+                  <c:if test="${dto.acount>0 }">
+                  <a  style="color: red;" href="content?num=${dto.num }&currentPage=${currentPage}#answer">[${dto.acount }]</a>
+                  </c:if>
+                  
                   <!-- 이미지가 있을경우 아이콘 표시 -->
                   <c:if test="${dto.photo!='no' }">
                     <span class="glyphicon glyphicon-picture" style="color: gray; font-size: 0.8em;"></span>
