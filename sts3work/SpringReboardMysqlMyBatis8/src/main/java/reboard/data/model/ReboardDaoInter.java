@@ -14,4 +14,8 @@ public interface ReboardDaoInter {
 	public int getCheckPass(int num,int pass);
 	public void deleteBoard(int num);
 	public void updateReboard(ReboardDto dto);
+	
+	//ajax문제위한 리스트
+	public List<ReboardDto> getAllDatas();
+	
 }
