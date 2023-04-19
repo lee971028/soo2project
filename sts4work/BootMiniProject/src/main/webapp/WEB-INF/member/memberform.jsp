@@ -42,13 +42,53 @@
 		});
 	  
 	  
+	  //아이디 입력시 idsuccess값 지움
+	  $("#loginid").keydown(function(){
+		  $("span.idsuccess").text("");
+	  })
 	  
 	  
 	  //중복체크 버튼 클릭시 아이디체크_ajax
-	  
+	  $("#btnidcheck").click(function(){
+		  
+		  
+		  //var id=$("#loginid").val();
+		  //alert(id);
+		  
+		  $.ajax({
+			  
+			  type:"get",
+			  dataType:"json",
+			  url:"idcheck",
+			  data:{"id":$("#loginid").val()},
+			  success:function(res){
+				  
+				  if(res.count==0){
+					  $("span.idsuccess").text("ok");
+				  }else{
+					  $("span.idsuccess").text("fail");
+				  }
+			  }
+		  });
+		  
+		  
+	  });
 	  
 	  
 	  //2번째 비밀번호 입력시 체크
+	  $("#pass2").keyup(function(){
+		  
+		  var p1=$("#pass").val();
+		  var p2=$(this).val();
+		  
+		  if(p1==p2){
+			  $("span.passsuccess").text("ok");
+		  }else{
+			  $("span.passsuccess").text("fail");
+		  }
+	  });
+	  
+	  
 
   });
 
@@ -114,7 +154,7 @@ onclick="location.href='list'">전체 회원 목록</button>
                name="pass" id="pass" placeholder="숫자4자리" required="required">
                
                <input type="password" style="width: 120px;" class="form-control"
-               name="pass" id="pass2" placeholder="숫자4자리" required="required">
+                id="pass2" placeholder="숫자4자리" required="required">
                
                &nbsp;<span class="passsuccess" style="width: 60px;"></span>
              </div>
