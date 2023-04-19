@@ -98,6 +98,7 @@ public class IpgoController {
 			
 			//마지막 컴마 제거
 			uploadName=uploadName.substring(0, uploadName.length()-1);
+			
 		}
 		
 		dto.setPhotoname(uploadName);
@@ -109,8 +110,11 @@ public class IpgoController {
 	
 	
 	
-	
-	
-	
+	//오시는길로 가기....쌍용교육센터...sub레이아웃으로 나오게....
+	@GetMapping("/load/map")
+	public String load()
+	{
+		return "/load/map";  //tiles레이아웃  /폴더명/파일명     or    /sub/폴더명/파일명
+	}
 	
 }

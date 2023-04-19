@@ -14,7 +14,7 @@
 <body>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
 <a href="${root }/">
-  <img alt="" src="${root }/image/title2.PNG" style="width: 300px;"><br>
+  <img alt="" src="${root }/image/title2.PNG"><br>
   <b>제2의 레이아웃 제목입니다</b>
 </a>
 </body>

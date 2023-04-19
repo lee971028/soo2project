@@ -24,7 +24,7 @@
   div.layout div.title{
       position: absolute;
       top: 10px;
-      left: 700px;
+      left: 500px;
       height: 100px;
   }
   
@@ -41,7 +41,7 @@
   div.layout div.main{
       position: absolute;
       top: 280px;
-      left: 400px;
+      left: 500px;
       width:1500px;
       height: 800px;
   }
