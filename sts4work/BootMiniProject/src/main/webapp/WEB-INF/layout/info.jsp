@@ -13,6 +13,18 @@
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath() %>"/>
+
+
+<c:if test="${sessionScope.loginok==null }">
+  <img alt="" src="${root }/image/blackwidow.png" width="130" height="130"
+  class="img-circle">
+</c:if>
+
+<c:if test="${sessionScope.loginok!=null }">
+	<img alt="" src="${root }/photo/${sessionScope.loginphoto}" width="130" height="130"
+  class="img-circle">
+</c:if>
+<br><br>
 <span class="glyphicon glyphicon-envelope">email</span>&nbsp;sist@gmail.com<br><br>
 <span class="glyphicon glyphicon-cog"></span>&nbsp;쌍용교육센터<br><br>
 <a href="">

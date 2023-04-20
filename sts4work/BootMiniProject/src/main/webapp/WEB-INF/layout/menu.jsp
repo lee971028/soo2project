@@ -105,7 +105,11 @@
 						<a href="#">MEMBER</a>
 						<ul class="sub-menu">
 							<li><a href="${root}/member/form"><i class="icon-gift"></i>회원가입</a></li>
+							
+							<c:if test="${sessionScope.loginok!=null and sessionScope.myid=='admin' }">
 							<li><a href="${root}/member/list"><i class="icon-credit-card"></i>회원목록</a></li>
+							</c:if>
+							
 							<li><a href="${root }/member/myinfo"><i class="icon-wrench"></i> 나의정보</a></li>							
 						</ul>
 					</li>

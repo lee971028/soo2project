@@ -12,9 +12,10 @@
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
  <style type="text/css">
- #btnlogin,#btnlogout{
+ #btnlogin,#btnlogin{
  margin-left: 600px;}
- 
+ .btnlogin{
+ margin-left: 400px;}
  </style>
 </head>
 <body>
@@ -31,6 +32,9 @@
 </c:if>
 
 <c:if test="${sessionScope.loginok!=null }">
+
+
+<b style="margin-left: 400px;">${sessionScope.loginname }님 로그인중...</b>
     <button type="button" class="btn btn-danger btn-sm"
     id="btnlogout">로그아웃</button>
 </c:if>

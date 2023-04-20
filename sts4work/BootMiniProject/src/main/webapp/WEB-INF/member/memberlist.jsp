@@ -25,7 +25,7 @@
        <th style="width: 200px;">이메일</th>
        <th style="width: 50px;">
          <input type="checkbox" id="allcheck">
-       삭제</th>
+       </th>
    </tr>
    
    <c:forEach  var="dto" items="${list }" varStatus="i">
