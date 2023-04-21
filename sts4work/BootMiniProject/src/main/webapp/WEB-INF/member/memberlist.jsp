@@ -10,6 +10,61 @@
 <link href="https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@100;300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script type="text/javascript">
+	$(function(){
+		
+		
+		//전체선택하면 체크박스 선택 헤제
+		$("#allcheck").click(function(){
+			
+			//체크값을 얻는다
+			var chk=$(this).is(":checked");
+			console.log(chk);
+			
+			//전체체크값을 아래의 체크에 일괄전달
+			$(".del").prop("checked",chk);
+			
+		});
+		
+		$("#btnmemberdel").click(function(){
+			
+			//체크한 상품 개수구하기
+			var cnt=$(".del:checked").length;
+			//alert(cnt);
+			
+			if(cnt==0){
+				alert("먼저 삭제번호를 선택해주세요");
+				return;//종료
+			}
+			
+			$(".del:checked").each(function(i,elt){
+				
+				var num=$(this).attr("num");
+				console.log(num); //선택한 num만 나오는지 확인할것
+				
+				
+				//삭제 ajax
+				$.ajax({
+					
+					type:"get",
+					url:"delete",
+					dataType:"html",
+					data:{"num":num},
+					success:function(){
+						
+						alert("삭제되었습니다");
+						//새로고침
+						location.reload();
+					}
+				});
+				
+			});
+			
+		});
+		
+		
+	});
+</script>
 </head>
 <body>
 <h2 class="alert alert-info">총 ${count }명의 회원이 있습니다</h2>
