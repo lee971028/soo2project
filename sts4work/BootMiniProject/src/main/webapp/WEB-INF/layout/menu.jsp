@@ -99,7 +99,14 @@
 							<li><a href="#"><i class="icon-wrench"></i> Icons</a></li>							
 						</ul>
 					</li>
-					<li><a href="${root}/board/list">게시판</a></li>
+					<li>
+					<a href="#">게시판</a>
+						<ul class="sub-menu">
+							<li><a href="${root}/board/list"><i class="icon-gift"></i>간단게시판</a></li>
+							<li><a href="#"><i class="icon-credit-card"></i>답변형게시판</a></li>
+							<li><a href="#"><i class="icon-wrench"></i> 스마트게시판</a></li>							
+						</ul>
+					</li>
 					
 					<li class="parent">
 						<a href="#">MEMBER</a>
