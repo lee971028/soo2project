@@ -45,11 +45,22 @@
         <c:forEach var="a"  items="${list }">
             <tr>
                <td align="center">${no }</td>
+               
                   <c:set var="no" value="${no-1 }"/>
                   
                <td>
                  <a href="content?num=${a.num }&currentPage=${currentPage}" style="color: black;">
-                   ${a.subject }
+                   ${a.subject } 
+                   
+                   
+                   <!-- 댓글개수추가 -->
+                   <c:if test="${a.acount>0 }">
+                   <a href="content?num=${a.num }&currentPage=${currentPage}"
+                   style="color: red;">[${a.acount }]</a>
+                   </c:if>
+                   
+                   
+                   
                      <c:if test="${a.uploadfile!='no' }">
                        <span class="glyphicon glyphicon-paperclip" style="color: gray;"></span>
                      
